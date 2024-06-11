@@ -39,8 +39,8 @@ const earthGeometry = new THREE.IcosahedronGeometry(1,200);
 // high-res textures are commented out
 const earthMaterial = new THREE.MeshPhongMaterial({ 
   // map: loader.load("./textures/earthmap1k.jpg"),
-  // map: loader.load("./textures/8k/8k_earth_daymap.jpg"),
-  map: loader.load("./textures/16k/2_no_clouds_16k.jpg"),
+  map: loader.load("./textures/8k/8k_earth_daymap.jpg"),
+  // map: loader.load("./textures/16k/2_no_clouds_16k.jpg"),
   bumpMap: loader.load("./textures/16k/elev_bump_16k.jpg"),
   bumpScale: 6,
   // map: loader.load("./textures/16k/1_earth_16k.jpg")
@@ -51,7 +51,7 @@ earthMesh.position.set(0, 0, 0);
 earthMesh.receiveShadow = true;
 earthGroup.add(earthMesh)
 
-const lightMapTexture = loader.load('./textures/16k/5_night_16k.jpg');
+const lightMapTexture = loader.load('./textures/8k/8k_earth_nightmap.jpg');
 
 const lightsMaterial = new THREE.MeshStandardMaterial({
   // map: loader.load("./textures/earthlights1k.jpg"),
@@ -125,8 +125,8 @@ sunLight.shadow.mapSize.height = 512; // default
 sunLight.shadow.camera.near = 0.5; // default
 sunLight.shadow.camera.far = 500; // default
 
-const helper = new THREE.CameraHelper( sunLight.shadow.camera );
-scene.add( helper );
+// const helper = new THREE.CameraHelper( sunLight.shadow.camera );
+// scene.add( helper );
 
 //Camera controls
 const controls = new OrbitControls(camera, renderer.domElement);
