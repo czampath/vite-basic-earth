@@ -249,7 +249,6 @@ circleButton.addEventListener('click', () => {
 const center = new THREE.Vector3(0, 0, 0);
 function updateDamping() {
     const distance = camera.position.distanceTo(center);
-    console.log(distance);
     const tooClose = 30;
     const nearLimit = 70;
     const farLimit = 500;
