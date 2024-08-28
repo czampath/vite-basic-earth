@@ -58,19 +58,19 @@ npm run build
 
 5. Copy everything in `for-build` directory into `docs`
 
-7. Navigate to the `docs` directory where the build is located:
+6. Navigate to the `docs` directory where the build is located:
 ```
     cd docs
 ```
 
-8. Start the HTTP server:
+7. Start the HTTP server:
 ```
     http-server -p 8000
 ```
 
-9. Open your browser and go to `http://localhost:8000`
+7. Open your browser and go to `http://localhost:8000`
 
-10. Commit and Push changes. You may need to clear Cache
+9. Commit and Push changes. You may need to clear Cache
 
 #### Acknowledgments
 
