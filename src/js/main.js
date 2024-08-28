@@ -149,6 +149,7 @@ const helper = new THREE.CameraHelper( sunLight.shadow.camera );
 //Camera controls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
+controls.zoomSpeed = 0.2
 
 //Composer
 const composer = new EffectComposer(renderer);
@@ -157,6 +158,115 @@ const renderPass = new RenderPass(scene,camera);
 generateStarDome(scene,.3,.5)
 
 composer.addPass(renderPass);
+
+
+//Camera movement toggle
+const newCameraPosition = new THREE.Vector3(550,2, -300);
+let cameraToggle = false;
+
+const btnContainer = document.createElement("div")
+btnContainer.style = "position: absolute; top: 5%; left: 50%; transform: translate(-50%, 50%); display: flex; gap: 5px; flex-direction: column;"
+
+const button = document.createElement('button');
+button.innerText = 'Move In/Out';
+button.style = ""
+btnContainer.appendChild(button);
+
+const circleButton = document.createElement('button');
+circleButton.innerText = 'Go Around';
+circleButton.style = "";
+btnContainer.appendChild(circleButton);
+document.body.appendChild(btnContainer);
+
+
+function easeInOutCustom(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+// Function to smoothly move the camera
+function moveCamera(targetPosition) {
+  const duration = 10; 
+  const initialPosition = camera.position.clone();
+  const startTime = performance.now();
+
+  function animate(time) {
+      const elapsedTime = (time - startTime) / 1000;
+      let t = Math.min(elapsedTime / duration, 1); 
+
+      t = easeInOutCustom(t);
+
+      camera.position.lerpVectors(initialPosition, targetPosition, t);
+
+      if (t < 1) {
+          requestAnimationFrame(animate);
+      }
+  }
+  requestAnimationFrame(animate);
+}
+
+// move camera around the globe
+function moveCameraInCircle(duration, center = new THREE.Vector3(0, 0, 0)) {
+  const startTime = performance.now();
+  
+  const initialX = camera.position.x - center.x;
+  const initialZ = camera.position.z - center.z;
+  const initialRadius = Math.sqrt(initialX * initialX + initialZ * initialZ);
+  const initialAngle = Math.atan2(initialZ, initialX);
+
+  function animate(time) {
+      const elapsedTime = (time - startTime) / 1000;
+      let t = Math.min(elapsedTime / duration, 1); 
+
+      t = easeInOutCustom(t);
+
+      const angle = initialAngle + t * Math.PI * 2; 
+      const radius = initialRadius; 
+      const x = center.x + radius * Math.cos(angle);
+      const z = center.z + radius * Math.sin(angle);
+
+      camera.position.set(x, camera.position.y, z);
+      camera.lookAt(center);
+
+      if (t < 1) {
+          requestAnimationFrame(animate);
+      }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+button.addEventListener('click', () => {
+  cameraToggle = !cameraToggle;
+  const targetPosition = cameraToggle ? newCameraPosition : new THREE.Vector3(15,-.2,40);
+  moveCamera(targetPosition);
+});
+
+circleButton.addEventListener('click', () => {
+  moveCameraInCircle(10);
+});
+
+//dynamic zoom-speed / scroll-damping relative to the distance
+const center = new THREE.Vector3(0, 0, 0);
+function updateDamping() {
+    const distance = camera.position.distanceTo(center);
+    console.log(distance);
+    const tooClose = 30;
+    const nearLimit = 70;
+    const farLimit = 500;
+    if( distance < tooClose){
+      controls.zoomSpeed = 0.05
+      controls.dampingFactor = 0.002;
+    } else if (distance < nearLimit) {
+        controls.dampingFactor = 0.008;
+        controls.zoomSpeed = 0.2
+    } else if (distance > farLimit) {
+        controls.dampingFactor = 0.1; 
+        controls.zoomSpeed = 1
+    } else {
+        controls.dampingFactor = 0.1 + (1 - (distance - nearLimit) / (farLimit - nearLimit)) * 0.1;
+    }
+}
+
 
 //Render
 function render(){
@@ -169,6 +279,8 @@ function animate(){
   
   render();
   requestAnimationFrame(animate);
+
+  updateDamping();
   earthMesh.rotation.y += 0.00015 * speedFactor
   lightsMesh.rotation.y += 0.00015 * speedFactor
   glowMesh.rotation.y += 0.00015 * speedFactor
