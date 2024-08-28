@@ -24,11 +24,13 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFShadowMap;
-camera.position.set(.5,-.2,1.7);
+camera.position.set(15,-.2,40);
 renderer.render(scene, camera);
 
 //texture Loader
-const loader =  new THREE.TextureLoader();
+const textureLoader =  new THREE.TextureLoader();
+
+// model loader
 const modelLoader = new GLTFLoader();
 
 let modelScale = .12
@@ -49,14 +51,14 @@ earthGroup.rotation.z = -23.4 * Math.PI / 180;
 scene.add(earthGroup)
 
 //Sphere Geom
-const earthGeometry = new THREE.IcosahedronGeometry(1,200);
+const earthGeometry = new THREE.IcosahedronGeometry(25,50);
 
 // high-res textures are commented out
 const earthMaterial = new THREE.MeshPhongMaterial({ 
   // map: loader.load("./textures/earthmap1k.jpg"),
-  map: loader.load("./textures/8k/8k_earth_daymap.jpg"),
-  // map: loader.load("./textures/16k/2_no_clouds_16k.jpg"),
-  bumpMap: loader.load("./textures/16k/elev_bump_16k.jpg"),
+  map: textureLoader.load("./textures/8k/8k_earth_daymap.jpg"),
+  // map: textureLoader.load("./textures/16k/2_no_clouds_16k.jpg"),
+  bumpMap: textureLoader.load("./textures/16k/elev_bump_16k.jpg"),
   bumpScale: 6,
   // map: loader.load("./textures/16k/1_earth_16k.jpg")
 });
@@ -66,7 +68,8 @@ earthMesh.position.set(0, 0, 0);
 earthMesh.receiveShadow = true;
 earthGroup.add(earthMesh)
 
-const lightMapTexture = loader.load('./textures/8k/8k_earth_nightmap.jpg');
+// const lightMapTexture = textureLoader.load('./textures/16k/5_night_16k.jpg');
+const lightMapTexture = textureLoader.load('./textures/8k/8k_earth_nightmap.jpg');
 
 const lightsMaterial = new THREE.MeshStandardMaterial({
   // map: loader.load("./textures/earthlights1k.jpg"),
@@ -90,7 +93,7 @@ const cloudMaterial = new THREE.MeshStandardMaterial({
   // map: loader.load("./textures/8k/fair_clouds_8k.jpg"),
   // map: loader.load("./textures/8k/australia_clouds_8k.jpg"),
   // map: loader.load("./textures/8k/storm_clouds_8k.jpg"),
-  map: loader.load("./textures/8k/africa_clouds_8k.jpg"),
+  map: textureLoader.load("./textures/8k/africa_clouds_8k.jpg"),
   blending: THREE.AdditiveBlending,
   transparent: true,
   opacity: .2
@@ -105,7 +108,7 @@ earthGroup.add(cloudsMesh)
 //second cloud layer
 const cloudMaterial2 = new THREE.MeshStandardMaterial({
   // map: loader.load("./textures/earthcloudmap.jpg"),
-  map: loader.load("./textures/8k/8k_earth_clouds.jpg"),
+  map: textureLoader.load("./textures/8k/8k_earth_clouds.jpg"),
   // map: loader.load("./textures/8k/fair_clouds_8k.jpg"),
   // map: loader.load("./textures/8k/australia_clouds_8k.jpg"),
   // map: loader.load("./textures/8k/storm_clouds_8k.jpg"),
@@ -140,7 +143,7 @@ sunLight.shadow.mapSize.height = 512; // default
 sunLight.shadow.camera.near = 0.5; // default
 sunLight.shadow.camera.far = 500; // default
 
-// const helper = new THREE.CameraHelper( sunLight.shadow.camera );
+const helper = new THREE.CameraHelper( sunLight.shadow.camera );
 // scene.add( helper );
 
 //Camera controls
