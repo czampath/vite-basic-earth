@@ -5,6 +5,7 @@ import { EffectComposer } from 'three/examples/jsm/Addons.js';
 import { RenderPass } from 'three/examples/jsm/Addons.js';
 import { generateStarDome } from './star-dome';
 import { getFresnelMat } from './getFresnelMat';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 const canvas = document.querySelector("#bg");
 
@@ -28,6 +29,20 @@ renderer.render(scene, camera);
 
 //texture Loader
 const loader =  new THREE.TextureLoader();
+const modelLoader = new GLTFLoader();
+
+let modelScale = .12
+
+modelLoader.load( './models/iss_s.glb', function ( gltf ) {
+  const model = gltf.scene;
+  model.scale.set(modelScale,modelScale,modelScale)
+  model.position.set(0,-.2,28);
+  model.rotation.set(1.5,1,0)
+  scene.add( model );
+
+}, undefined, function ( error ) {
+  console.error( error );
+});
 
 const earthGroup = new THREE.Group();
 earthGroup.rotation.z = -23.4 * Math.PI / 180;
