@@ -176,11 +176,13 @@ btnContainer.style = "position: absolute; top: 5%; left: 50%; transform: transla
 const button = document.createElement('button');
 button.innerText = 'Move In/Out';
 button.style = ""
+button.classList = "btn"
 btnContainer.appendChild(button);
 
 const circleButton = document.createElement('button');
 circleButton.innerText = 'Go Around';
 circleButton.style = "";
+circleButton.classList = "btn"
 btnContainer.appendChild(circleButton);
 document.body.appendChild(btnContainer);
 
@@ -191,6 +193,7 @@ function easeInOutCustom(t) {
 
 // Function to smoothly move the camera
 function moveCamera(targetPosition) {
+  document.querySelectorAll('.btn').forEach((ele) => { ele.style = "opacity: 0;"; ele.disabled = true})
   const duration = 10; 
   const initialPosition = camera.position.clone();
   const startTime = performance.now();
@@ -205,6 +208,8 @@ function moveCamera(targetPosition) {
 
       if (t < 1) {
           requestAnimationFrame(animate);
+      }else{
+        document.querySelectorAll('.btn').forEach((ele) => { ele.style = "opacity: 1;"; ele.disabled = false})
       }
   }
   requestAnimationFrame(animate);
@@ -212,6 +217,8 @@ function moveCamera(targetPosition) {
 
 // move camera around the globe
 function moveCameraInCircle(duration, center = new THREE.Vector3(0, 0, 0)) {
+  document.querySelectorAll('.btn').forEach((ele) => { ele.style = "opacity: 0;"; ele.disabled = true})
+  
   const startTime = performance.now();
   
   const initialX = camera.position.x - center.x;
@@ -235,9 +242,10 @@ function moveCameraInCircle(duration, center = new THREE.Vector3(0, 0, 0)) {
 
       if (t < 1) {
           requestAnimationFrame(animate);
+      }else{
+        document.querySelectorAll('.btn').forEach((ele) => { ele.style = "opacity: 1;"; ele.disabled = false})
       }
   }
-
   requestAnimationFrame(animate);
 }
 

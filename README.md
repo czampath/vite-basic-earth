@@ -1,6 +1,6 @@
 ### Vite + VanillaJS + ThreeJS : Earth
 
-GitHub Page: [Earth DEMO](https://czampath.github.io/vite-basic-earth/) - 8K Resolution
+Visit GitHub Page: [DEMO](https://czampath.github.io/vite-basic-earth/) - 8K Resolution
 
 A simple web application showcasing an interactive 3D Earth using Three.js and Vite, inspired by the tutorial provided by [bobbyroe](https://github.com/bobbyroe/threejs-earth).
 
