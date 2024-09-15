@@ -59,6 +59,7 @@ npm run build
 5. Copy everything in `for-build` directory into `docs`
 
 6. Navigate to the `docs` directory where the build is located:
+
 ```
     cd docs
 ```
@@ -71,6 +72,7 @@ npm run build
 7. Open your browser and go to `http://localhost:8000`
 
 9. Commit and Push changes. You may need to clear Cache
+
 
 #### Acknowledgments
 
