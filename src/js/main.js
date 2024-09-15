@@ -164,6 +164,12 @@ composer.addPass(renderPass);
 const newCameraPosition = new THREE.Vector3(550,2, -300);
 let cameraToggle = false;
 
+const visitorContainer = document.createElement('div')
+visitorContainer.innerHTML = '<img src="https://visitor-badge.laobi.icu/badge?page_id=czampath.vite-basic-earth" />'
+visitorContainer.style = "position: absolute;bottom: 1rem;right: 1rem;display: flex;gap: 5px;flex-direction: column;"
+
+document.body.appendChild(visitorContainer)
+
 const btnContainer = document.createElement("div")
 btnContainer.style = "position: absolute; top: 5%; left: 50%; transform: translate(-50%, 50%); display: flex; gap: 5px; flex-direction: column;"
 
