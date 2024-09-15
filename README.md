@@ -36,6 +36,26 @@ npm run dev
 4. Open your browser and navigate to [http://localhost:5173](http://localhost:5173) to view the app.
 
 
+### Running the Build
+
+Ensure you have `http-server` installed globally. If not, you can install it using npm:
+
+    npm install -g http-server
+
+1. Build the project if it is not already built. This typically involves running a build script such as:
+
+    npm run build
+
+2. copy everything in `for-build` directory into `docs`
+
+2. Navigate to the `docs` directory where the build is located:
+
+    cd docs
+
+4. Start the HTTP server:
+
+    http-server -p 8000
+
 #### Acknowledgments
 
 Special thanks to:
