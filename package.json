@@ -13,6 +13,7 @@
     "vite-plugin-static-copy": "^1.0.5"
   },
   "dependencies": {
-    "three": "^0.164.1"
+    "three": "^0.164.1",
+    "vite-js-basic-template": "file:"
   }
 }
