@@ -36,25 +36,42 @@ npm run dev
 4. Open your browser and navigate to [http://localhost:5173](http://localhost:5173) to view the app.
 
 
-### Running the Build
+#### Deploy to Github pages
 
-Ensure you have `http-server` installed globally. If not, you can install it using npm:
+1. Make sure newly added textures and models are copied into suitable folders inside `/for-build`
 
-    npm install -g http-server
+2. After to commiting all the changes, move to branch `deploy`
 
-1. Build the project if it is not already built. This typically involves running a build script such as:
+3. Get changes from `master` branch
+```
+git fetch
+```
 
-    npm run build
+```
+git pull --rebase
+```
 
-2. copy everything in `for-build` directory into `docs`
+4. Build app (This may delete exisiting files in `/docs`)
+```
+npm run build
+```
 
-2. Navigate to the `docs` directory where the build is located:
+5. Copy everything in `for-build` directory into `docs`
 
+7. Navigate to the `docs` directory where the build is located:
+```
     cd docs
+```
 
-4. Start the HTTP server:
-
+8. Start the HTTP server:
+```
     http-server -p 8000
+```
+
+9. Open your browser and go to `http://localhost:8000`
+
+10. Commit and Push changes. You may need to clear Cache
+
 
 #### Acknowledgments
 

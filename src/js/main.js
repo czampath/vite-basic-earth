@@ -24,7 +24,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFShadowMap;
-camera.position.set(15,-.2,40);
+camera.position.set(538.402308702465, 600.4111212360707, 387.4134696955057);
 renderer.render(scene, camera);
 
 //texture Loader
@@ -314,3 +314,9 @@ function onWindowResize(){
 
 window.addEventListener("resize", onWindowResize);
 animate();
+
+
+const targetPosition = cameraToggle ? newCameraPosition : new THREE.Vector3(15,-.2,40);
+setTimeout(()=>{
+  moveCamera(targetPosition);
+},2000)
