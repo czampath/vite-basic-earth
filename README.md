@@ -72,7 +72,6 @@ npm run build
 
 10. Commit and Push changes. You may need to clear Cache
 
-
 #### Acknowledgments
 
 Special thanks to:
